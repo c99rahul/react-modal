@@ -28,7 +28,7 @@ const App: React.FC = () => {
       </div>
 
       {newsletterFormData && newsletterFormData.email && (
-        <div className="msg-box msg-box--success">
+        <div className="msg-box">
           <b>{newsletterFormData.email}</b> requested a <b>{newsletterFormData.digestType}</b> newsletter.
         </div>
       )}
