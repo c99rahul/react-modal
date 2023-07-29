@@ -1,0 +1,33 @@
+dialog {
+  max-width: 20rem;
+  padding: 2rem;
+  border: 0;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+dialog:modal {
+  box-shadow: hsl(0 0% 0% / 10%) 0 0 0.5rem 0.25rem;
+}
+
+dialog::backdrop {
+  background: hsl(0 0% 0% / 50%);
+}
+
+dialog:not(:modal) {
+  border-radius: 1rem;
+  padding: 1rem;
+  position: fixed;
+  left: unset;
+  bottom: 1em;
+  right: 1em;
+  box-shadow: hsl(0 0% 0% / 10%) 0 0 0.25rem 0.125rem;
+  border: 1px solid #ccc;
+}
+
+.modal-close-btn {
+  font-size: 0.75em;
+  position: absolute;
+  top: 0.25em;
+  right: 0.25em;
+}

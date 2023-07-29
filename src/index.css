@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  font: 1em/1.5 sans-serif;
+  padding: 2em;
+}
+
+:root {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+}
+
+select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button {
+  padding: 0.5em;
+  font: inherit;
+  line-height: 1;
+}
+
+button {
+  cursor: pointer;
+}
+
+p {
+  margin: 0;
+}
+
+p:not(:last-child) {
+  margin-bottom: 1.5em;
+}

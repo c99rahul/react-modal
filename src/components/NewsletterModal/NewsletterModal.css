@@ -1,0 +1,11 @@
+.form-row + .form-row {
+  margin-top: 1rem;
+}
+
+.form-row label,
+.form-row input,
+.form-row select,
+.form-row button {
+  width: 100%;
+  display: block;
+}
