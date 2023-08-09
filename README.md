@@ -1,27 +1,14 @@
-# React + TypeScript + Vite
+# React Modal Dialog w/ the HTML Dialog API
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is an example of demoing the implementation of a modal dialog in React using the HTML Dialog API. The Dialog API is a native API that allows you to create modal dialogs without additional dependencies or libraries. This gives you the benefit of using the accessibility sugar offered by the Dialog API, and it also makes it easy to collect the data received using the modal dialog.
 
-Currently, two official plugins are available:
+To use this example, clone the repository and import the `Modal` component into your React project. You can then use the `Modal` component to create modal dialogs with any content you want.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Key Features
 
-## Expanding the ESLint configuration
+* Uses the HTML Dialog API to create modal dialogs
+* Hence offers built-in accessibility features for the dialogs
+* Allows you to collect data from modal dialogs
+* Easy to use, extend, and customize
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Let me know if you find any issues with this. Happy coding!
