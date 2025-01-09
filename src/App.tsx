@@ -1,43 +1,51 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 import NewsletterModal, {
   NewsletterModalData,
-} from './components/NewsletterModal/NewsletterModal';
-import './App.css';
+} from "./components/NewsletterModal/NewsletterModal";
+import "./App.css";
 
-const App: React.FC = () => {
-  const [isNewsletterModalOpen, setNewsletterModalOpen] = useState<boolean>(false);
-  const [newsletterFormData, setNewsletterFormData] = useState<NewsletterModalData | null>(null);
+const App = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
 
-  const handleOpenNewsletterModal = () => {
-    setNewsletterModalOpen(true);
+  // Example default data (could be fetched from an API)
+  const defaultSubscriptionData: NewsletterModalData = {
+    email: "",
+    digestType: "weekly",
   };
 
-  const handleCloseNewsletterModal = () => {
-    setNewsletterModalOpen(false);
-  };
+  const [subscriptionData, setSubscriptionData] = useState<NewsletterModalData>(
+    defaultSubscriptionData
+  );
 
-  const handleFormSubmit = (data: NewsletterModalData): void => {
-    setNewsletterFormData(data);
-    handleCloseNewsletterModal();
+  const handleSubmit = (data: NewsletterModalData): void => {
+    setSubscriptionData(data); // Store subscription data
+    setModalOpen(false); // Close modal
+    // Optionally, send updated data to the server or database here
   };
 
   return (
-    <>
-      <div style={{ display: "flex", gap: "1em" }}>
-        <button onClick={handleOpenNewsletterModal}>Open Newsletter Form (Modal)</button>
-      </div>
+    <div className="App">
+      {/* Open Modal Button */}
+      <button onClick={() => setModalOpen(true)}>
+        Open Newsletter Form (Modal)
+      </button>
 
-      {newsletterFormData && newsletterFormData.email && (
+      {/* Display Subscription Data */}
+      {subscriptionData && subscriptionData.email && (
         <div className="msg-box">
-          <b>{newsletterFormData.email}</b> requested a <b>{newsletterFormData.digestType}</b> newsletter.
+          <b>{subscriptionData.email}</b> requested a{" "}
+          <b>{subscriptionData.digestType}</b> newsletter.
         </div>
       )}
 
+      {/* Newsletter Modal */}
       <NewsletterModal
-        isOpen={isNewsletterModalOpen}
-        onSubmit={handleFormSubmit}
-        onClose={handleCloseNewsletterModal} />
-    </>
+        isOpen={isModalOpen}
+        modalData={subscriptionData}
+        onClose={() => setModalOpen(false)}
+        onSubmit={handleSubmit}
+      />
+    </div>
   );
 };
 

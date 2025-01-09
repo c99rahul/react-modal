@@ -1,34 +1,31 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './NewsletterModal.css';
-import Modal from '../Modal/Modal';
+import React, { useRef, useEffect, useState } from "react";
+import Modal from "../Modal/Modal";
+import "./NewsletterModal.css";
 
 export interface NewsletterModalData {
   email: string;
-  digestType: string;
+  digestType: "daily" | "weekly" | "monthly";
 }
-
-const initialNewsletterModalData: NewsletterModalData = {
-  email: '',
-  digestType: 'weekly',
-};
 
 interface NewsletterModalProps {
   isOpen: boolean;
-  onSubmit: (data: NewsletterModalData) => void;
+  modalData: NewsletterModalData;
   onClose: () => void;
+  onSubmit: (data: NewsletterModalData) => void;
 }
 
-const NewsletterModal: React.FC<NewsletterModalProps> = ({
-  onSubmit,
+const NewsletterModal = ({
   isOpen,
+  modalData,
   onClose,
-}) => {
+  onSubmit,
+}: NewsletterModalProps) => {
+  const focusInputRef = useRef<HTMLInputElement>(null);
 
-  const focusInputRef = useRef<HTMLInputElement | null>(null);
-  const [formState, setFormState] = useState<NewsletterModalData>(
-    initialNewsletterModalData
-  );
+  // Local state to manage form values
+  const [formData, setFormData] = useState<NewsletterModalData>(modalData);
 
+  // Focus on the email field when modal opens
   useEffect(() => {
     if (isOpen && focusInputRef.current) {
       setTimeout(() => {
@@ -37,28 +34,29 @@ const NewsletterModal: React.FC<NewsletterModalProps> = ({
     }
   }, [isOpen]);
 
+  // Update local form state
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ): void => {
+  ) => {
     const { name, value } = event.target;
-    setFormState((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event: React.FormEvent): void => {
+  // Handle form submission
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    onSubmit(formState);
-    setFormState(initialNewsletterModalData);
+    onSubmit(formData);
+  };
+
+  const handleClose = () => {
+    setFormData(modalData);
+    onClose();
   };
 
   return (
-    <Modal
-      hasCloseBtn={true}
-      isOpen={isOpen}
-      onClose={onClose}>
+    <Modal hasCloseBtn={true} isOpen={isOpen} onClose={handleClose}>
       <form onSubmit={handleSubmit}>
+        {/* Email Input */}
         <div className="form-row">
           <label htmlFor="email">Email</label>
           <input
@@ -66,25 +64,33 @@ const NewsletterModal: React.FC<NewsletterModalProps> = ({
             type="email"
             id="email"
             name="email"
-            value={formState.email}
+            value={formData.email}
+            placeholder="Enter your email"
             onChange={handleInputChange}
             required
           />
         </div>
+
+        {/* Digest Type Select */}
         <div className="form-row">
           <label htmlFor="digestType">Digest Type</label>
           <select
             id="digestType"
             name="digestType"
-            value={formState.digestType}
+            value={formData.digestType}
             onChange={handleInputChange}
             required
           >
+            <option value="" disabled>
+              Select a digest type
+            </option>
             <option value="daily">Daily</option>
             <option value="weekly">Weekly</option>
             <option value="monthly">Monthly</option>
           </select>
         </div>
+
+        {/* Submit Button */}
         <div className="form-row">
           <button type="submit">Submit</button>
         </div>
