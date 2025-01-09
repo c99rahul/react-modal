@@ -5,44 +5,52 @@ import NewsletterModal, {
 import "./App.css";
 
 const App = () => {
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [isNewsletterModalOpen, setNewsletterModalOpen] =
+    useState<boolean>(false);
 
   // Example default data (could be fetched from an API)
-  const defaultSubscriptionData: NewsletterModalData = {
+  const defaultNewsletterModalData: NewsletterModalData = {
     email: "",
     digestType: "weekly",
   };
 
-  const [subscriptionData, setSubscriptionData] = useState<NewsletterModalData>(
-    defaultSubscriptionData
-  );
+  const [newsletterFormData, setNewsletterFormData] =
+    useState<NewsletterModalData>(defaultNewsletterModalData);
 
   const handleSubmit = (data: NewsletterModalData): void => {
-    setSubscriptionData(data); // Store subscription data
-    setModalOpen(false); // Close modal
+    setNewsletterFormData(data); // Store subscription data
+    setNewsletterModalOpen(false); // Close modal
     // Optionally, send updated data to the server or database here
+  };
+
+  const handleOpenNewsletterModal = () => {
+    setNewsletterModalOpen(true);
+  };
+
+  const handleCloseNewsletterModal = () => {
+    setNewsletterModalOpen(false);
   };
 
   return (
     <div className="App">
       {/* Open Modal Button */}
-      <button onClick={() => setModalOpen(true)}>
+      <button onClick={handleOpenNewsletterModal}>
         Open Newsletter Form (Modal)
       </button>
 
       {/* Display Subscription Data */}
-      {subscriptionData && subscriptionData.email && (
+      {newsletterFormData && newsletterFormData.email && (
         <div className="msg-box">
-          <b>{subscriptionData.email}</b> requested a{" "}
-          <b>{subscriptionData.digestType}</b> newsletter.
+          <b>{newsletterFormData.email}</b> requested a{" "}
+          <b>{newsletterFormData.digestType}</b> newsletter.
         </div>
       )}
 
       {/* Newsletter Modal */}
       <NewsletterModal
-        isOpen={isModalOpen}
-        modalData={subscriptionData}
-        onClose={() => setModalOpen(false)}
+        isOpen={isNewsletterModalOpen}
+        modalData={newsletterFormData}
+        onClose={handleCloseNewsletterModal}
         onSubmit={handleSubmit}
       />
     </div>
